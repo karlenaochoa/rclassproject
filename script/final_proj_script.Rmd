@@ -73,10 +73,19 @@ data <- import(here("data_folder","data.csv"))
 data_tidy <- data %>% 
   clean_names() %>% 
   rename("exact_age" = "exactage_x") %>% 
-  select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18"))
+  select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18")) %>%
+  filter(!is.na(subid))
 
 ```
 
+```{r tidydata}
+data_tidy %>%
+  gather(trial, score, "tt1":"tt6")%>%
+  mutate(trial = parse_number(trial))%>%
+  mutate(score = as.numeric(score))
+
+
+```
 
 
 
