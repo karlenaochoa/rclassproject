@@ -59,13 +59,25 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
+library(janitor)
+library(tidyverse)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(kableExtra)
 ```
 
-```{r analysis-preferences}
-# Seed for random number generation
-set.seed(42)
-knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```{r import and clean, eval=FALSE}
+data <- import(here("data_folder","data.csv"))
+data_tidy <- data %>% 
+  clean_names() %>% 
+  rename("exact_age" = "exactage_x") %>% 
+  select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18"))
+
 ```
+
+
 
 
 
