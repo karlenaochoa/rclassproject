@@ -70,6 +70,7 @@ library(kableExtra)
 
 ```{r import and clean, eval=FALSE}
 data <- import(here("data_folder","data.csv"))
+data[data==999]<- NA
 data_tidy <- data %>% 
   clean_names() %>% 
   rename("exact_age" = "exactage_x") %>% 
@@ -79,10 +80,14 @@ data_tidy <- data %>%
 ```
 
 ```{r tidydata}
-data_tidy %>%
+data_tidy %<>%
   gather(trial, score, "tt1":"tt6")%>%
-  mutate(trial = parse_number(trial))%>%
-  mutate(score = as.numeric(score))
+  mutate(trial = as.factor(parse_number(trial)))%>%
+  mutate(score = as.numeric(score))%>%
+  gather(csus_item, csus_response, "csus1":"csus18")%>%
+  mutate(csus_item = as.factor(parse_number(csus_item)))%>%
+  mutate(csus_response = as.numeric(csus_response))
+
 
 
 ```
