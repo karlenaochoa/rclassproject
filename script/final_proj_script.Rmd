@@ -71,11 +71,16 @@ library(kableExtra)
 ```{r import and clean, eval=FALSE}
 data <- import(here("data_folder","data.csv"))
 data[data==999]<- NA
-data_tidy <- data %>% 
+
+data %<>% 
   clean_names() %>% 
   rename("exact_age" = "exactage_x") %>% 
   select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18")) %>%
-  filter(!is.na(subid))
+  filter(!is.na(subid))%>%
+  mutate(condition= as.factor(ifelse(condition==1, "first-hand", "second-hand")))%>%
+  mutate(gender= as.factor(ifelse(gender==1, "male", "female")))%>%
+  mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" )))
+ 
 
 ```
 
@@ -87,8 +92,6 @@ data_tidy %<>%
   gather(csus_item, csus_response, "csus1":"csus18")%>%
   mutate(csus_item = as.factor(parse_number(csus_item)))%>%
   mutate(csus_response = as.numeric(csus_response))
-
-
 
 ```
 
@@ -109,6 +112,18 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 
 
 # Results
+
+```{r}
+summary_plot <- data %>%
+  group_by(age_group, condition)%>%
+  summarize(average_trust = mean(total_trust))
+  
+ggplot(summary_plot, aes(age_group, average_trust))+
+  geom_col(aes(fill=condition), position= "dodge", alpha=.7)+
+  theme_minimal()
+
+```
+
 
 # Discussion
 
