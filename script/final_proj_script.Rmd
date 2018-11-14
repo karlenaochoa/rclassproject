@@ -3,19 +3,20 @@ title             : "The title"
 shorttitle        : "Title"
 
 author: 
-  - name          : "First Author"
+  - name          : "Karlena Ochoa"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : "Postal address"
-    email         : "my@email.com"
-  - name          : "Ernst-August Doelle"
-    affiliation   : "1,2"
+    address       : "Straub"
+    email         : "kochoa@uoregon.edu"
+  - name          : "Tamara Niella"
+    affiliation   : "1"
+  - name          : "Kathryn Denning"
+    affiliation   : "1"
 
 affiliation:
   - id            : "1"
-    institution   : "Wilhelm-Wundt-University"
-  - id            : "2"
-    institution   : "Konstanz Business School"
+    institution   : "University of Oregon"
+
 
 authornote: |
   Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
@@ -42,7 +43,7 @@ abstract: |
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : ["r-references.bib"]
+bibliography      : 
 
 floatsintext      : no
 figurelist        : no
@@ -59,13 +60,14 @@ output            : papaja::apa6_pdf
 
 ```{r setup, include = FALSE}
 library("papaja")
-library(janitor)
 library(tidyverse)
+library(janitor)
 library(rio)
 library(magrittr)
 library(here)
 library(knitr)
 library(kableExtra)
+
 ```
 
 ```{r import and clean, eval=FALSE}
@@ -84,9 +86,9 @@ data %<>%
 
 ```
 
-```{r tidydata}
-data_tidy<- data%>%
-  gather(trial, score, "tt1":"tt6")%>%
+```{r tidydata, eval=FALSE, error=FALSE, warning=FALSE}
+data_tidy <- data %>%
+  gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
   mutate(trial = as.factor(parse_number(trial)))%>%
   mutate(score = as.numeric(score))%>%
   gather(csus_item, csus_response, "csus1":"csus18")%>%
@@ -108,7 +110,6 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ## Procedure
 
 ## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
 
 
 # Results
@@ -118,7 +119,14 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 ```{r plot 1}
 summary_plot <- data %>%
   group_by(age_group, condition)%>%
-  summarize(average_trust = mean(total_trust))
+  summarise(average_trust = mean(total_trust))
+
+summary_table <- summary_plot %>% 
+  mutate(average_trust = round(average_trust,2)) %>% 
+  spread(condition, average_trust)
+  
+kable(summary_table) %>% 
+  kable_styling(position="center", full_width = F)
   
 ggplot(summary_plot, aes(age_group, average_trust))+
   geom_col(aes(fill=condition), position= "dodge", alpha=.7)+
@@ -135,7 +143,7 @@ ggplot(summary_plot, aes(age_group, average_trust))+
 
 summary_plot2 <- data_tidy %>% 
   group_by(subid)%>%
-  summarize(average_csus = mean(csus_response), average_trust = mean(total_trust))%>%
+  summarise(average_csus = mean(csus_response), average_trust = mean(total_trust))%>%
   filter(!is.na(average_csus))
 
 ggplot(summary_plot2, aes(average_trust, average_csus))+
@@ -148,7 +156,22 @@ ggplot(summary_plot2, aes(average_trust, average_csus))+
 
 ```
 
+```{r plot3}
+summary_plot3 <- data_tidy %>% 
+  mutate(EF = ((flanker_rs+dccs_rs)/2)) %>% 
+  filter(!is.na(EF)) %>% 
+  dplyr::group_by(subid) %>%
+  summarise(average_EF = mean(EF), average_trust = mean(total_trust))
+  
+ggplot(summary_plot3, aes(average_trust, average_EF))+
+    geom_point()+
+    geom_smooth(method= "lm")+
+  labs(title= "Relation between Executive Function and Children's Trust Score", 
+       x = "Average Trust Score", 
+       y = "Executive Function")+
+  theme_minimal()
 
+```
 
 # Discussion
 
@@ -157,7 +180,7 @@ ggplot(summary_plot2, aes(average_trust, average_csus))+
 
 # References
 ```{r create_r-references}
-r_refs(file = "r-references.bib")
+
 ```
 
 \begingroup
