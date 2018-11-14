@@ -85,7 +85,7 @@ data %<>%
 ```
 
 ```{r tidydata}
-data_tidy %<>%
+data_tidy<- data%>%
   gather(trial, score, "tt1":"tt6")%>%
   mutate(trial = as.factor(parse_number(trial)))%>%
   mutate(score = as.numeric(score))%>%
@@ -113,16 +113,41 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 
 # Results
 
-```{r}
+##Plot 1
+
+```{r plot 1}
 summary_plot <- data %>%
   group_by(age_group, condition)%>%
   summarize(average_trust = mean(total_trust))
   
 ggplot(summary_plot, aes(age_group, average_trust))+
   geom_col(aes(fill=condition), position= "dodge", alpha=.7)+
+    labs(title= "Children's Selective Trust of Helpful over Tricky informant" , 
+       subtitle = " Separated by Condition and Age group ", 
+       x = "Age Group", y = "Average Trust Score")+
   theme_minimal()
 
 ```
+
+##Plot 2
+
+```{r plot2}
+
+summary_plot2 <- data_tidy %>% 
+  group_by(subid)%>%
+  summarize(average_csus = mean(csus_response), average_trust = mean(total_trust))%>%
+  filter(!is.na(average_csus))
+
+ggplot(summary_plot2, aes(average_trust, average_csus))+
+  geom_point()+
+  geom_smooth(method= "lm")+
+  labs(title= "Relation between CSUS Response and Children's Trust Score" , 
+       subtitle = " CSUS response is parents' response on Children's Theory of Mind", 
+       x = "Average Trust Score", y = "Average CSUS Response")+
+  theme_minimal()
+
+```
+
 
 
 # Discussion
