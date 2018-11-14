@@ -1,6 +1,6 @@
 ---
-title             : "The title"
-shorttitle        : "Title"
+title             : "Does First-hand Experience Improve Children’s Ability to Discern Between Helpful and Tricky Informants?"
+shorttitle        : "Selective Trust"
 
 author: 
   - name          : "Karlena Ochoa"
