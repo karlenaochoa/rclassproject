@@ -24,26 +24,14 @@ authornote: |
   Enter author note here.
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  Prior research on children’s trust has typically offered children either first-hand information about an informant’s intentions (e.g., they directly observe someone helping another person) or second-hand information (e.g., they are simply told someone is helpful). We tested whether receiving both kinds of information facilitates selective trust in a helpful vs. tricky informant. 3- and 4-year-olds searched for a sticker 6 times after hearing conflicting advice from two informants about the sticker’s location. Children did not receive feedback during the sticker-finding task. In the second-hand condition, the researcher simply described one informant as “helpful”, and the other as “tricky” before the trials began. In the combined condition, children were first asked to guess what animal was in a box after each informant offered advice: each informant gave consistently helpful or consistently deceptive advice across 3 trials. Children received feedback by peeking inside the box. The informant’s intentions were then described as in the second-hand condition and the test trials followed. Additionally, children completed 3 tasks from the NIH Toolbox Kit that measured vocabulary and executive functioning. Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
   
   <!-- https://tinyurl.com/ybremelq -->
   
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : 
+bibliography      : ["references.bib"]
 
 floatsintext      : no
 figurelist        : no
@@ -67,12 +55,14 @@ library(magrittr)
 library(here)
 library(knitr)
 library(kableExtra)
+library(stats)
+
 
 ```
 
-```{r import and clean, eval=FALSE}
+```{r import and clean}
 df <- import(here("data_folder","data.csv"))
-data[data==999]<- NA
+df[df==999]<- NA
 
 df %<>% 
   clean_names() %>% 
@@ -83,10 +73,9 @@ df %<>%
   mutate(gender= as.factor(ifelse(gender==1, "male", "female")))%>%
   mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" )))
  
-
 ```
 
-```{r tidydata, eval=FALSE, error=FALSE, warning=FALSE}
+```{r tidydata, error=FALSE, warning=FALSE}
 data_tidy <- df %>%
   gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
   mutate(trial = as.factor(parse_number(trial)))%>%
@@ -96,9 +85,6 @@ data_tidy <- df %>%
   mutate(csus_response = as.numeric(csus_response))
 
 ```
-
-
-
 
 # Methods
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
@@ -110,7 +96,7 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ## Procedure
 
 ## Data analysis
-
+We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
@@ -180,7 +166,7 @@ ggplot(summary_plot3, aes(average_trust, average_EF))+
 
 # References
 ```{r create_r-references}
-
+r_refs(file = "references.bib")
 ```
 
 \begingroup
