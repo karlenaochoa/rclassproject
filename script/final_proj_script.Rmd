@@ -56,6 +56,7 @@ library(here)
 library(knitr)
 library(kableExtra)
 library(stats)
+library(stats)
 
 
 ```
@@ -71,7 +72,10 @@ df %<>%
   filter(!is.na(subid))%>%
   mutate(condition= as.factor(ifelse(condition==1, "first-hand", "second-hand")))%>%
   mutate(gender= as.factor(ifelse(gender==1, "male", "female")))%>%
-  mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" )))
+  mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" ))) %>%
+  group_by(subid) %>%
+  mutate(average_trust = mean(total_trust))
+    
  
 ```
 
@@ -105,8 +109,15 @@ We used `r cite_r("references.bib")` for all our analyses.
 ```{r plot 1}
 summary_plot <- df %>%
   group_by(age_group, condition) %>%
-  summarise(average_trust = mean(total_trust))
+  summarise(n = n(),
+            average_trust = mean(total_trust),
+            sd_average_trust = sd(total_trust),
+            se_average_trust = sd_average_trust / (sqrt(n)))
+  
 ```
+
+
+
 ```{r}
 summary_table <- summary_plot %>% 
   mutate(average_trust = round(average_trust,2)) %>% 
@@ -116,11 +127,22 @@ kable(summary_table) %>%
   kable_styling(position="center", full_width = F)
   
 ggplot(summary_plot, aes(age_group, average_trust))+
-  geom_col(aes(fill=condition), position= "dodge", alpha=.7)+
+  geom_bar(aes(fill=condition), stat = "identity", position= "dodge", alpha=.7)+
     labs(title= "Children's Selective Trust of Helpful over Tricky informant" , 
        subtitle = " Separated by Condition and Age group ", 
        x = "Age Group", y = "Average Trust Score")+
+     geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
+                       ymax = average_trust + 1.96*se_average_trust,
+                       group = condition),
+                  width=.2,                    # Width of the error bars
+                  position = position_dodge(width = 0.9)) +
   theme_minimal()
+
+```
+
+```{r anova}
+res_aov <- aov(average_trust ~ age_group * condition, data = df)
+summary(res_aov)
 
 ```
 
