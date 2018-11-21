@@ -1,0 +1,187 @@
+---
+title             : "Does First-hand Experience Improve Children’s Ability to Discern Between Helpful and Tricky Informants?"
+shorttitle        : "Selective Trust"
+
+author: 
+  - name          : "Karlena Ochoa"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Straub"
+    email         : "kochoa@uoregon.edu"
+  - name          : "Tamara Niella"
+    affiliation   : "1"
+  - name          : "Kathryn Denning"
+    affiliation   : "1"
+
+affiliation:
+  - id            : "1"
+    institution   : "University of Oregon"
+
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  Prior research on children’s trust has typically offered children either first-hand information about an informant’s intentions (e.g., they directly observe someone helping another person) or second-hand information (e.g., they are simply told someone is helpful). We tested whether receiving both kinds of information facilitates selective trust in a helpful vs. tricky informant. 3- and 4-year-olds searched for a sticker 6 times after hearing conflicting advice from two informants about the sticker’s location. Children did not receive feedback during the sticker-finding task. In the second-hand condition, the researcher simply described one informant as “helpful”, and the other as “tricky” before the trials began. In the combined condition, children were first asked to guess what animal was in a box after each informant offered advice: each informant gave consistently helpful or consistently deceptive advice across 3 trials. Children received feedback by peeking inside the box. The informant’s intentions were then described as in the second-hand condition and the test trials followed. Additionally, children completed 3 tasks from the NIH Toolbox Kit that measured vocabulary and executive functioning. Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library(tidyverse)
+library(janitor)
+library(rio)
+library(magrittr)
+library(here)
+library(knitr)
+library(kableExtra)
+library(stats)
+
+
+```
+
+```{r import and clean}
+df <- import(here("data_folder","data.csv"))
+df[df==999]<- NA #KH: This is a helpful and efficient line of code. 
+
+df %<>% 
+  clean_names() %>% 
+  rename("exact_age" = "exactage_x") %>% 
+  select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18")) %>%
+  filter(!is.na(subid))%>%
+  mutate(condition= as.factor(ifelse(condition==1, "first-hand", "second-hand")))%>%
+  mutate(gender= as.factor(ifelse(gender==1, "male", "female")))%>%
+  mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" )))
+
+#KH:I can see that you cleaned the names, and then renamed a column, selected columns of interest and then cases where subject IDs were not NA. You then use the mutate() function to render condition and gender in terms that are easily interpretable without reference to a key. I wonder (if you were using this script on an OSF page, for example) if it would be helpful to make a comment about why the four-year-old category includes kids for whom age_group==5.
+ 
+```
+
+```{r tidydata, error=FALSE, warning=FALSE}
+data_tidy <- df %>%
+  gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
+  mutate(trial = as.factor(parse_number(trial)))%>%
+  mutate(score = as.numeric(score))%>%
+  gather(csus_item, csus_response, "csus1":"csus18")%>%
+  mutate(csus_item = as.factor(parse_number(csus_item)))%>%
+  mutate(csus_response = as.numeric(csus_response))
+
+#KH: In columns “tt1” through “tt6,” there is indeed info in the variable name (trial number), and you use the gather() function effectively to create a column that is trial number, with scores in another column. And you did an analogous process for csus. Then you take the “tt” out of the trial column using the parse_number function. Two brief comments: (a) I wondered if you might replace c("tt1", "tt2"..."tt6") with c("tt1":"tt6") or simply make use of the column number as in `gather(trial, score, 6:11)` (b) I believe that you could omit the two lines of code that use the mutate() function to render "score" and "csus_reponse" as numeric (lines 84 and 87). These two columsn/vectors were already numeric by default, so removing these lines could make this code chunk more parsimonious. A counterargument for doing that, though, would be that the mutate() and as.numeric() functions provide a kind of check in case the vectors were not recognized as numeric. 
+
+```
+
+# Methods
+We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+
+## Participants
+
+## Material
+
+## Procedure
+
+## Data analysis
+We used `r cite_r("references.bib")` for all our analyses.
+
+# Results
+
+##Plot 1
+
+```{r plot 1}
+summary_plot <- df %>%
+  group_by(age_group, condition) %>%
+  summarise(average_trust = mean(total_trust)) #KH: The name "summary_plot" may lead the reader to expect a plot here instead of a data frame before doing a double-take. A comment and/or a different name could improve the ease with which your code is interpreted.  
+```
+```{r}
+summary_table <- summary_plot %>% 
+  mutate(average_trust = round(average_trust,2)) %>% 
+  spread(condition, average_trust)
+  
+kable(summary_table) %>% 
+  kable_styling(position="center", full_width = F)
+  
+ggplot(summary_plot, aes(age_group, average_trust))+
+  geom_col(aes(fill=condition), position= "dodge", alpha=.7)+
+    labs(title= "Children's Selective Trust of Helpful over Tricky informant" , 
+       subtitle = " Separated by Condition and Age group ", 
+       x = "Age Group", y = "Average Trust Score")+
+  theme_minimal()
+
+#KH: Very clear bar graph and easy to interpret. Error bars could push the bar graph even further.
+
+```
+
+##Plot 2
+
+```{r plot2}
+
+summary_plot2 <- data_tidy %>% 
+  group_by(subid)%>%
+  summarise(average_csus = mean(csus_response), average_trust = mean(total_trust))%>%
+  filter(!is.na(average_csus))
+
+ggplot(summary_plot2, aes(average_trust, average_csus))+
+  geom_point()+
+  geom_smooth(method= "lm")+
+  labs(title= "Relation between CSUS Response and Children's Trust Score" , 
+       subtitle = " CSUS response is parents' response on Children's Theory of Mind", 
+       x = "Average Trust Score", y = "Average CSUS Response")+
+  theme_minimal()
+
+#KH: The subtitle for this plot seems like it woudl be suitable information for a caption. It's helpful that the name (summary_plot2) clearly parallels the set-up that you did to create a data frame for the first plot above. 
+
+```
+
+```{r plot3}
+summary_plot3 <- data_tidy %>% 
+  mutate(EF = ((flanker_rs+dccs_rs)/2)) %>% 
+  filter(!is.na(EF)) %>% 
+  dplyr::group_by(subid) %>%
+  summarise(average_EF = mean(EF), average_trust = mean(total_trust))
+  
+ggplot(summary_plot3, aes(average_trust, average_EF))+
+    geom_smooth(method= "lm")+
+  labs(title= "Relation between Executive Function and Children's Trust Score", 
+       x = "Average Trust Score", 
+       y = "Executive Function")+
+  theme_minimal()
+
+#KH: What kind of units are used for the EF measure on the y-axis? Again, the parallels you use between this code chunk and the two preceding code chunks (i.e., setting up your data frame before making a call to ggplot) helps the reader of your code track easily what you are doing. The pattern that you have set up makes me feel like I could easily add a fourth plot, for example, and that I could follow the research team's organizing conventions to do that.   
+
+```
+
+# Discussion
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
