@@ -46,7 +46,7 @@ classoption       : "man"
 output            : papaja::apa6_pdf
 ---
 
-```{r setup, include = FALSE}
+```{r setup, echo = FALSE, warning = FALSE, message=FALSE, error=FALSE}
 library("papaja")
 library(tidyverse)
 library(janitor)
@@ -58,6 +58,7 @@ library(kableExtra)
 library(stats)
 library(stats)
 
+knitr::opts_chunk$set()
 
 ```
 
@@ -187,9 +188,6 @@ ggplot(summary_plot3, aes(average_trust, average_EF))+
 \newpage
 
 # References
-```{r create_r-references}
-r_refs(file = "references.bib")
-```
 
 \begingroup
 \setlength{\parindent}{-0.5in}
