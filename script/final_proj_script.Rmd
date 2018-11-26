@@ -64,16 +64,16 @@ knitr::opts_chunk$set()
 
 ```{r import and clean}
 df <- import(here("data_folder","data.csv"))
-df[df==999]<- NA
+df[df == 999] <- NA
 
 df %<>% 
   clean_names() %>% 
   rename("exact_age" = "exactage_x") %>% 
   select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18")) %>%
-  filter(!is.na(subid))%>%
-  mutate(condition= as.factor(ifelse(condition==1, "first-hand", "second-hand")))%>%
-  mutate(gender= as.factor(ifelse(gender==1, "male", "female")))%>%
-  mutate(age_group= as.factor(ifelse(age_group==5 | age_group==4, "4", "3" ))) %>%
+  filter(!is.na(subid)) %>%
+  mutate(condition = as.factor(ifelse(condition == 1, "first-hand", "second-hand"))) %>%
+  mutate(gender = as.factor(ifelse(gender == 1, "male", "female"))) %>%
+  mutate(age_group = as.factor(ifelse(age_group == 5 | age_group == 4, "4", "3" ))) %>%
   group_by(subid) %>%
   mutate(average_trust = mean(total_trust))
     
@@ -83,10 +83,10 @@ df %<>%
 ```{r tidydata, error=FALSE, warning=FALSE}
 data_tidy <- df %>%
   gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
-  mutate(trial = as.factor(parse_number(trial)))%>%
-  mutate(score = as.numeric(score))%>%
-  gather(csus_item, csus_response, "csus1":"csus18")%>%
-  mutate(csus_item = as.factor(parse_number(csus_item)))%>%
+  mutate(trial = as.factor(parse_number(trial))) %>%
+  mutate(score = as.numeric(score)) %>%
+  gather(csus_item, csus_response, "csus1":"csus18") %>%
+  mutate(csus_item = as.factor(parse_number(csus_item))) %>%
   mutate(csus_response = as.numeric(csus_response))
 
 ```
@@ -114,37 +114,31 @@ summary_plot <- df %>%
             average_trust = mean(total_trust),
             sd_average_trust = sd(total_trust),
             se_average_trust = sd_average_trust / (sqrt(n)))
-  
-```
 
-
-
-```{r}
 summary_table <- summary_plot %>% 
   mutate(average_trust = round(average_trust,2)) %>% 
   spread(condition, average_trust)
   
 kable(summary_table) %>% 
-  kable_styling(position="center", full_width = F)
+  kable_styling(position = "center", full_width = F)
   
-ggplot(summary_plot, aes(age_group, average_trust))+
-  geom_bar(aes(fill=condition), stat = "identity", position= "dodge", alpha=.7)+
+ggplot(summary_plot, aes(age_group, average_trust)) +
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge", alpha = .7) +
     labs(title= "Children's Selective Trust of Helpful over Tricky informant" , 
        subtitle = " Separated by Condition and Age group ", 
-       x = "Age Group", y = "Average Trust Score")+
+       x = "Age Group", y = "Average Trust Score") +
      geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
                        ymax = average_trust + 1.96*se_average_trust,
                        group = condition),
-                  width=.2,                    # Width of the error bars
+                  width=.2,                    
                   position = position_dodge(width = 0.9)) +
   theme_minimal()
-
 ```
+
 
 ```{r anova}
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
 summary(res_aov)
-
 ```
 
 ##Plot 2
@@ -152,16 +146,17 @@ summary(res_aov)
 ```{r plot2}
 
 summary_plot2 <- data_tidy %>% 
-  group_by(subid)%>%
-  summarise(average_csus = mean(csus_response), average_trust = mean(total_trust))%>%
+  group_by(subid )%>%
+  summarise(average_csus = mean(csus_response), average_trust = mean(total_trust)) %>%
   filter(!is.na(average_csus))
 
-ggplot(summary_plot2, aes(average_trust, average_csus))+
-  geom_point()+
-  geom_smooth(method= "lm")+
+ggplot(summary_plot2, aes(average_trust, average_csus)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
   labs(title= "Relation between CSUS Response and Children's Trust Score" , 
        subtitle = " CSUS response is parents' response on Children's Theory of Mind", 
-       x = "Average Trust Score", y = "Average CSUS Response")+
+       x = "Average Trust Score", 
+       y = "Average CSUS Response") +
   theme_minimal()
 
 ```
@@ -173,13 +168,12 @@ summary_plot3 <- data_tidy %>%
   dplyr::group_by(subid) %>%
   summarise(average_EF = mean(EF), average_trust = mean(total_trust))
   
-ggplot(summary_plot3, aes(average_trust, average_EF))+
-    geom_smooth(method= "lm")+
-  labs(title= "Relation between Executive Function and Children's Trust Score", 
+ggplot(summary_plot3, aes(average_trust, average_EF)) +
+    geom_smooth(method = "lm") +
+  labs(title = "Relation between Executive Function and Children's Trust Score", 
        x = "Average Trust Score", 
-       y = "Executive Function")+
+       y = "Executive Function") +
   theme_minimal()
-
 ```
 
 # Discussion
