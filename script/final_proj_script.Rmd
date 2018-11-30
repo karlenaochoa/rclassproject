@@ -147,14 +147,16 @@ summary(res_aov)
 
 summary_plot2 <- data_tidy %>% 
   group_by(subid )%>%
-  summarise(average_csus = mean(csus_response), average_trust = mean(total_trust)) %>%
+  summarise(average_csus = mean(csus_response), 
+            average_trust = mean(total_trust)) %>%
   filter(!is.na(average_csus))
 
 ggplot(summary_plot2, aes(average_trust, average_csus)) +
   geom_point() +
   geom_smooth(method = "lm") +
-  labs(title= "Relation between CSUS Response and Children's Trust Score" , 
-       subtitle = " CSUS response is parents' response on Children's Theory of Mind", 
+  labs(title= "Relation between CSUS Response and Children's Trust Score", 
+       subtitle = " CSUS response is parents' response on 
+       Children's Theory of Mind", 
        x = "Average Trust Score", 
        y = "Average CSUS Response") +
   theme_minimal()
