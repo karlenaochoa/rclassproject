@@ -80,7 +80,7 @@ df %<>%
  
 ```
 
-```{r tidydata, error=FALSE, warning=FALSE}
+```{r tidydata}
 data_tidy <- df %>%
   gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
   mutate(trial = as.factor(parse_number(trial))) %>%
