@@ -67,13 +67,24 @@ df <- import(here("data_folder","data.csv"))
 df[df == 999] <- NA
 
 df %<>% 
-  clean_names() %>% 
+  clean_names() %>%
   rename("exact_age" = "exactage_x") %>% 
-  select(c("subid", "age_group", "exact_age", "gender", "condition", "tt1":"tt6", "total_trust", "flanker_rs", "dccs_rs", "csus1":"csus18")) %>%
+  select(c("subid", 
+           "age_group", 
+           "exact_age", 
+           "gender", 
+           "condition", 
+           "tt1":"tt6", 
+           "total_trust", 
+           "flanker_rs", 
+           "dccs_rs", 
+           "csus1":"csus18")) %>%
   filter(!is.na(subid)) %>%
-  mutate(condition = as.factor(ifelse(condition == 1, "first-hand", "second-hand"))) %>%
+  mutate(condition = as.factor(ifelse(condition == 1, "first-hand",
+                                      "second-hand"))) %>%
   mutate(gender = as.factor(ifelse(gender == 1, "male", "female"))) %>%
-  mutate(age_group = as.factor(ifelse(age_group == 5 | age_group == 4, "4", "3" ))) %>%
+  mutate(age_group = as.factor(ifelse(age_group == 5 |
+                                        age_group == 4, "4", "3" ))) %>%
   group_by(subid) %>%
   mutate(average_trust = mean(total_trust))
     
@@ -123,9 +134,10 @@ kable(summary_table) %>%
   kable_styling(position = "center", full_width = F)
   
 ggplot(summary_plot, aes(age_group, average_trust)) +
-  geom_bar(aes(fill = condition), stat = "identity", position = "dodge", alpha = .7) +
-    labs(title= "Children's Selective Trust of Helpful over Tricky informant" , 
-       subtitle = " Separated by Condition and Age group ", 
+  geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
+           alpha = .7) +
+    labs(title= "Children's Selective Trust of Helpful over Tricky informant", 
+       subtitle = "Separated by Condition and Age group", 
        x = "Age Group", y = "Average Trust Score") +
      geom_errorbar(aes(ymin = average_trust - 1.96*se_average_trust, 
                        ymax = average_trust + 1.96*se_average_trust,
