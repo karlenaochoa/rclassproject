@@ -1,7 +1,6 @@
 ---
 title             : "Does First-hand Experience Improve Children’s Ability to Discern Between Helpful and Tricky Informants?"
 shorttitle        : "Selective Trust"
-
 author: 
   - name          : "Karlena Ochoa"
     affiliation   : "1"
@@ -12,26 +11,19 @@ author:
     affiliation   : "1"
   - name          : "Kathryn Denning"
     affiliation   : "1"
-
 affiliation:
   - id            : "1"
     institution   : "University of Oregon"
-
-
 authornote: |
-
   We would like to thank Dr. Daniel Anderson for all his help and comments on this manuscript.
-
 abstract: |
+  
+  
   Prior research on children’s trust has typically offered children either first-hand information about an informant’s intentions (e.g., they directly observe someone helping another person) or second-hand information (e.g., they are simply told someone is helpful). We tested whether receiving both kinds of information facilitates selective trust in a helpful vs. tricky informant. 3- and 4-year-olds searched for a sticker 6 times after hearing conflicting advice from two informants about the sticker’s location. Children did not receive feedback during the sticker-finding task. In the second-hand condition, the researcher simply described one informant as “helpful”, and the other as “tricky” before the trials began. In the combined condition, children were first asked to guess what animal was in a box after each informant offered advice: each informant gave consistently helpful or consistently deceptive advice across 3 trials. Children received feedback by peeking inside the box. The informant’s intentions were then described as in the second-hand condition and the test trials followed. Additionally, children completed 3 tasks from the NIH Toolbox Kit that measured vocabulary and executive functioning. Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
-  
   <!-- https://tinyurl.com/ybremelq -->
-  
 keywords          : "keywords"
 wordcount         : "X"
-
 bibliography      : ["references.bib"]
-
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -39,10 +31,11 @@ footnotelist      : no
 linenumbers       : yes
 mask              : no
 draft             : no
-
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
+editor_options: 
+  chunk_output_type: inline
 ---
 
   Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency @van2011. Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable @koenig2005preschoolers. These trust tasks have often been conducted using a word‐learning paradigm @koenig2005preschoolers and more recently using a sticker‐finding task @vanderbilt2014absence. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
@@ -62,13 +55,10 @@ library(here)
 library(knitr)
 library(kableExtra)
 library(stats)
-<<<<<<< HEAD
 library(stats)
 library(psych)
 library(sjPlot)
 
-=======
->>>>>>> master
 # setting global options: 
 
 knitr::opts_chunk$set()
@@ -113,7 +103,7 @@ df %<>%
 
 ```{r tidydata}
 
-#Reorganazing data from wide to lon for trust score and csus response from parents 
+# Reorganazing data from wide to long for trust and csus response from parents 
 
 data_tidy <- df %>%
   gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
@@ -131,10 +121,12 @@ data_tidy <- df %>%
 
 # Methods
 ```{r descriptives}
+# Getting mean age in months for both 3 and 4-year olds
 descrip_age <- df %>% 
   group_by(age_group) %>% 
   summarize(mean(exact_age))
 
+# Getting n per condition
 descrip_cond <- df %>% 
   group_by(condition) %>% 
   count()
@@ -143,7 +135,7 @@ descrip_cond <- df %>%
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(M age) and four-year-olds (M age) participated and were randomly assigned to either the first-hand condition (N ) or second-hand condition (N). 
+  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r descrip_age[1, 2]` months) and four-year-olds (*M* = `r descrip_age[2, 2]` months) participated and were randomly assigned to either the first-hand condition (N = `r descrip_cond[1, 2]` ) or second-hand condition (N = `r descrip_cond[2, 2]`). 
 
 ## Material
   In order to assess children’s trust in sources, children will be presented with paired sources that differ in their intentions to help or deceive. Children in the first-hand condition were first tricked and helped by separate puppets in a warm-up task and then a researcher described each puppet’s trait before continuing to the sticker-finding task. Children in the second-hand condition only heard the researcher’s description of the puppets and then continued to the task. On each of six trials, children watched as the two puppets provided conflicting advice about the location of a hidden sticker, and then children were asked where they would like to search for the sticker. After children completed six trials they were asked a series of questions to test their understanding of the puppets’ intentions and knowledge.
@@ -175,6 +167,7 @@ summary_descrip <- df %>%
   group_by(age_group, condition) %>%
   summarise(average_trust = mean(total_trust))
 
+#Table filling cells with average trust as opposed to separate column
 summary_table <- summary_descrip %>% 
   mutate(average_trust = round(average_trust,2)) %>% 
   spread(condition, average_trust)
