@@ -57,6 +57,7 @@ library(knitr)
 library(kableExtra)
 library(stats)
 library(stats)
+library(psych)
 
 knitr::opts_chunk$set()
 
@@ -68,7 +69,7 @@ df[df == 999] <- NA
 
 df %<>% 
   clean_names() %>%
-  rename("exact_age" = "exactage_x") %>% 
+  rename(exact_age = exactage_x) %>% 
   select(c("subid", 
            "age_group", 
            "exact_age", 
@@ -103,6 +104,16 @@ data_tidy <- df %>%
 ```
 
 # Methods
+```{r descriptives}
+descrip_age <- df %>% 
+  group_by(age_group) %>% 
+  summarize(mean(exact_age))
+
+descrip_cond <- df %>% 
+  group_by(condition) %>% 
+  count()
+```
+
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
@@ -115,6 +126,8 @@ We report how we determined our sample size, all data exclusions (if any), all m
 We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
+
+
 
 ##Plot 1
 
