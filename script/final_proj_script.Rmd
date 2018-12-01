@@ -130,12 +130,17 @@ descrip_age <- df %>%
 descrip_cond <- df %>% 
   group_by(condition) %>% 
   count()
+
+# Getting n per gender
+descrip_gender <- df %>% 
+  group_by(gender) %>% 
+  count()
 ```
 
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r descrip_age[1, 2]` months) and four-year-olds (*M* = `r descrip_age[2, 2]` months) participated and were randomly assigned to either the first-hand condition (N = `r descrip_cond[1, 2]` ) or second-hand condition (N = `r descrip_cond[2, 2]`). 
+  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r descrip_age[1, 2]` months) and four-year-olds (*M* = `r descrip_age[2, 2]` months) participated (`r descrip_gender[1,2]` females, `r descrip_gender[2,2]` males) and were randomly assigned to either the first-hand condition (N = `r descrip_cond[1, 2]` ) or second-hand condition (N = `r descrip_cond[2, 2]`). 
 
 ## Material
   In order to assess children’s trust in sources, children will be presented with paired sources that differ in their intentions to help or deceive. Children in the first-hand condition were first tricked and helped by separate puppets in a warm-up task and then a researcher described each puppet’s trait before continuing to the sticker-finding task. Children in the second-hand condition only heard the researcher’s description of the puppets and then continued to the task. On each of six trials, children watched as the two puppets provided conflicting advice about the location of a hidden sticker, and then children were asked where they would like to search for the sticker. After children completed six trials they were asked a series of questions to test their understanding of the puppets’ intentions and knowledge.
