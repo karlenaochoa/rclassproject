@@ -65,6 +65,7 @@ library(kableExtra)
 library(stats)
 library(stats)
 library(psych)
+library(sjPlot)
 
 # setting global options: 
 
@@ -202,6 +203,11 @@ ggplot(summary_plot, aes(age_group, average_trust )) +
 
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
 summary(res_aov)
+
+df_aov <- df %>% 
+  group_by(age_group) %>% 
+  summarize(mean(average_trust))
+papaja::apa_table(df_aov)
 ```
 
 ```{r plot2}
