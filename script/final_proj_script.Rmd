@@ -180,7 +180,7 @@ kable(summary_table) %>%
 
 # Constructing Plot 1 
 
-ggplot(summary_plot, aes(age_group, average_trust )) +
+ggplot(summary_p, aes(age_group, average_trust )) +
   geom_bar(aes(fill = condition), stat = "identity", position = "dodge",
            alpha = .7) +
     labs(title= "Children's Selective Trust of Helpful over Tricky informant", 
@@ -226,6 +226,8 @@ ggplot(summary_plot2, aes(average_csus, average_trust )) +
        y = "Average Trust Score") +
   theme_minimal()
 
+cor.test(summary_plot2$average_csus, summary_plot2$average_trust )
+
 ```
 
 ```{r plot3}
@@ -241,11 +243,14 @@ summary_plot3 <- data_tidy %>%
 #Creating Plot 3: 
 
 ggplot(summary_plot3, aes(average_EF, average_trust )) +
+    geom_point()+
     geom_smooth(method = "lm") +
   labs(title = "Relation between Executive Function and Children's Trust Score", 
        x = "Executive Function", 
        y = "Average Trust Score") +
   theme_minimal()
+
+cor.test(summary_plot3$average_EF, summary_plot3$average_trust)
 ```
 
 # Discussion
