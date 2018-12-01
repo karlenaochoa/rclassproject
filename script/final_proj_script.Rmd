@@ -222,9 +222,14 @@ ggplot(summary_plot2, aes(average_csus, average_trust )) +
        y = "Average Trust Score") +
   theme_minimal()
 
-cor.test(summary_plot2$average_csus, summary_plot2$average_trust )
+corr2 <- cor.test(summary_plot2$average_csus, summary_plot2$average_trust )
+c2<- round(corr2$estimate, 3)
+p2<- round(corr2$p.value, 3)
 
 ```
+
+`r c2` 
+`r p2` 
 
 ```{r plot3}
 
@@ -246,8 +251,13 @@ ggplot(summary_plot3, aes(average_EF, average_trust )) +
        y = "Average Trust Score") +
   theme_minimal()
 
-cor.test(summary_plot3$average_EF, summary_plot3$average_trust)
+corr3 <- cor.test(summary_plot3$average_EF, summary_plot3$average_trust)
+c3<- round(corr3$estimate, 3)
+p3 <- round(corr3$p.value, 3)
 ```
+
+`r c3` 
+`r p3`
 
 # Discussion
 
