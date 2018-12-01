@@ -155,13 +155,6 @@ We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
-
-<<<<<<< HEAD
-
-##Plot 1
-=======
->>>>>>> master
-
 ```{r plot 1}
 
 #calculating average trust and sd and se to build a summary table nd error bars 
@@ -210,8 +203,6 @@ ggplot(summary_plot, aes(age_group, average_trust )) +
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
 summary(res_aov)
 ```
-
-##Plot 2
 
 ```{r plot2}
 
