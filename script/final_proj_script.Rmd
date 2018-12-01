@@ -169,16 +169,23 @@ summary_p <- df %>%
             se_average_trust = sd_average_trust / (sqrt(n)))
 
 # Table summarizing average trust per condition 
+summary_descrip <- df %>%
+  group_by(age_group, condition) %>%
+  summarise(average_trust = mean(total_trust))
 
-summary_table <- summary_p %>% 
+summary_table <- summary_descrip %>% 
   mutate(average_trust = round(average_trust,2)) %>% 
   spread(condition, average_trust)
 
 # printing table 
 
-kable(summary_table) %>% 
-  kable_styling(position = "center", full_width = F)
-
+kable(summary_table, "latex", booktabs=T, 
+      escape = FALSE,
+      col.names = c("Age Group",
+                    "First-Hand",
+                    "Second-Hand"))  %>% 
+  kable_styling(position = "center", full_width = F) 
+ 
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
@@ -203,11 +210,6 @@ ggplot(summary_p, aes(age_group, average_trust )) +
 
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
 summary(res_aov)
-
-df_aov <- df %>% 
-  group_by(age_group) %>% 
-  summarize(mean(average_trust))
-papaja::apa_table(df_aov)
 ```
 
 ```{r plot2}
