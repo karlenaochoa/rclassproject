@@ -2,7 +2,7 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{final_proj_script_files/figure-latex/unnamed-chunk-1-1.pdf}
+\includegraphics{final_proj_script_files/figure-latex/plot 1-1.pdf}
 \caption{}
 \end{figure*}
 \begin{figure*}[hbt]
