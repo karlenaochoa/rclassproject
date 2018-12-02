@@ -1,37 +1,27 @@
 ---
 title             : "Does First-hand Experience Improve Children’s Ability to Discern Between Helpful and Tricky Informants?"
 shorttitle        : "Selective Trust"
-
 author: 
   - name          : "Karlena Ochoa"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : "Straub"
+    address       : "Department of Psychology, Univeristy of Oregon"
     email         : "kochoa@uoregon.edu"
   - name          : "Tamara Niella"
     affiliation   : "1"
   - name          : "Kathryn Denning"
     affiliation   : "1"
-
 affiliation:
   - id            : "1"
     institution   : "University of Oregon"
-
-
 authornote: |
-
   We would like to thank Dr. Daniel Anderson for all his help and comments on this manuscript.
-
 abstract: |
-  Prior research on children’s trust has typically offered children either first-hand information about an informant’s intentions (e.g., they directly observe someone helping another person) or second-hand information (e.g., they are simply told someone is helpful). We tested whether receiving both kinds of information facilitates selective trust in a helpful vs. tricky informant. 3- and 4-year-olds searched for a sticker 6 times after hearing conflicting advice from two informants about the sticker’s location. Children did not receive feedback during the sticker-finding task. In the second-hand condition, the researcher simply described one informant as “helpful”, and the other as “tricky” before the trials began. In the combined condition, children were first asked to guess what animal was in a box after each informant offered advice: each informant gave consistently helpful or consistently deceptive advice across 3 trials. Children received feedback by peeking inside the box. The informant’s intentions were then described as in the second-hand condition and the test trials followed. Additionally, children completed 3 tasks from the NIH Toolbox Kit that measured vocabulary and executive functioning. Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
-  
+  Prior research on children’s trust has typically offered children either first-hand information about an informant’s intentions (e.g., they directly observe someone helping another person) or second-hand information (e.g., they are simply told someone is helpful). We tested whether receiving both kinds of information facilitates selective trust in a helpful vs. tricky informant. 3- and 4-year-olds searched for a sticker 6 times after hearing conflicting advice from two informants about the sticker’s location. Children did not receive feedback during the sticker-finding task. In the second-hand condition, the researcher simply described one informant as “helpful”, and the other as “tricky” before the trials began. In the combined condition, children were first asked to guess what animal was in a box after each informant offered advice: each informant gave consistently helpful or consistently deceptive advice across 3 trials. Children received feedback by peeking inside the box. The informant’s intentions were then described as in the second-hand condition and the test trials followed. Additionally, children completed 3 tasks from the NIH Toolbox Kit that measured vocabulary and executive functioning. Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments. Out results suggest that four-year-olds are more selective and trust the reliable informant over the unreliable informant more often than three-year-olds, regardless of the type of information received. Further, we found a weak, positive relationship between parent report measures of theory of mind and children’s trust score and children’s executive function score and trust score. 
   <!-- https://tinyurl.com/ybremelq -->
-  
-keywords          : "keywords"
-wordcount         : "X"
-
-bibliography      : ["references.bib"]
-
+keywords          : "Selective trust, executive function, theory of mind"
+wordcount         : "259"
+bibliography      : "references.bib"
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -39,17 +29,19 @@ footnotelist      : no
 linenumbers       : yes
 mask              : no
 draft             : no
-
 documentclass     : "apa6"
 classoption       : "man"
-output            : papaja::apa6_pdf
+output            : 
+  papaja::apa6_pdf:
+    latex_engine  : "xelatex"
 ---
-
-  Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency @van2011. Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable @koenig2005preschoolers. These trust tasks have often been conducted using a word‐learning paradigm @koenig2005preschoolers and more recently using a sticker‐finding task @vanderbilt2014absence. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
-  In a previous study we examined preschool‐age children’s (3‐, 4‐, and 5‐year‐olds) ability to reason about the relative knowledge or honesty of two sources presented together (Ochoa & Vanderbilt, 2018). We found that 4‐ and 5-year‐olds trusted the reliable informant over the unreliable informant. Three‐year‐olds were not selective in their trust of the reliable informant, even though 50% of the children said that the reliable informant was better to listen to. It is possible, however, that when children have firsthand experience with informants’ traits, the traits will become more salient and therefore have a stronger influence on children’s trust decisions. 
+  Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency [@van2011]. Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable [@koenig2005preschoolers]. These trust tasks have often been conducted using a word‐learning paradigm [@koenig2005preschoolers] and more recently using a sticker‐finding task [@vanderbilt2014absence]. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
+  
+  In a previous study we examined preschool‐age children’s (3‐, 4‐, and 5‐year‐olds) ability to reason about the relative knowledge or honesty of two sources presented together. We found that 4‐ and 5-year‐olds trusted the reliable informant over the unreliable informant. Three‐year‐olds were not selective in their trust of the reliable informant, even though 50% of the children said that the reliable informant was better to listen to. It is possible, however, that when children have firsthand experience with informants’ traits, the traits will become more salient and therefore have a stronger influence on children’s trust decisions. 
+  
   The purpose of this current study is to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. A secondary aim is to look at preschool‐age children’s cognitive abilities in relation to their ability to selectively trust reliable informants over unreliable informants.
 
-```{r setup, echo = FALSE, warning = FALSE, message=FALSE, error=FALSE}
+```{r setup, include = FALSE}
 
 #loading libraries we will need: 
 
@@ -62,6 +54,10 @@ library(here)
 library(knitr)
 library(kableExtra)
 library(stats)
+library(psych)
+
+
+
 # setting global options: 
 
 knitr::opts_chunk$set()
@@ -72,8 +68,8 @@ knitr::opts_chunk$set()
 
 # Importing our data: 
 
-df <- import(here("data_folder","data.csv"))
-df[df == 999] <- NA
+df <- import(here("data_folder","data.csv"),
+             na.string = "999")
 
 # Cleaning our data: selecting what variables we need, getting rid of NAs, 
 #recoding condition age group and gender for an easier analysis, greating the 
@@ -106,7 +102,7 @@ df %<>%
 
 ```{r tidydata}
 
-#Reorganazing data from wide to lon for trust score and csus response from parents 
+# Reorganazing data from wide to long for trust and csus response from parents 
 
 data_tidy <- df %>%
   gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
@@ -118,25 +114,38 @@ data_tidy <- df %>%
 
 ```
 
-  Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency (Liu, Vanderbilt, & Heyman, 2013). Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable (Koenig & Harris, 2005; Nurmsoo & Robinson, 2009). These trust tasks have often been conducted using a word‐learning paradigm (Koenig & Harris, 2005) and more recently using a sticker‐finding task (Liu et al., 2013; Vanderbilt, Heyman, & Liu, 2014). However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
-  In a previous study we examined preschool‐age children’s (3‐, 4‐, and 5‐year‐olds) ability to reason about the relative knowledge or honesty of two sources presented together (Ochoa & Vanderbilt, 2018). We found that 4‐ and 5-year‐olds trusted the reliable informant over the unreliable informant. Three‐year‐olds were not selective in their trust of the reliable informant, even though 50% of the children said that the reliable informant was better to listen to. It is possible, however, that when children have firsthand experience with informants’ traits, the traits will become more salient and therefore have a stronger influence on children’s trust decisions. 
-  The purpose of this current study is to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. A secondary aim is to look at preschool‐age children’s cognitive abilities in relation to their ability to selectively trust reliable informants over unreliable informants.
-
 # Methods
 ```{r descriptives}
+# Getting mean age in months for both 3 and 4-year olds
 descrip_age <- df %>% 
   group_by(age_group) %>% 
   summarize(mean(exact_age))
 
+# Getting n per condition
 descrip_cond <- df %>% 
   group_by(condition) %>% 
   count()
+
+# Getting n per gender
+descrip_gender <- df %>% 
+  group_by(gender) %>% 
+  count()
+
+# setting up values for inline code for the participant descriptives
+# could not get the inline code to reference descrip_age[2,2]
+# Only would reference when made a character, unsure why?
+mean_age_4 <- as.character(round(descrip_age[2,2],2))
+mean_age_3 <- as.character(round(descrip_age[1,2],2))
+female_n <- as.character(round(descrip_gender[1,2],2))
+male_n <- as.character(round(descrip_gender[2,2],2))
+first_n <- as.character(round(descrip_cond[1,2],2))
+second_n <- as.character(round(descrip_cond[2,2],2))
 ```
 
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+We report our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(M age) and four-year-olds (M age) participated and were randomly assigned to either the first-hand condition (N ) or second-hand condition (N). 
+   This project was pre-registered at the Open Science Framework with a designated sample of 100. Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r mean_age_3 ` months) and four-year-olds (*M* = `r mean_age_4` months) participated (`r female_n` females, `r male_n` males) and were randomly assigned to either the first-hand condition (N = `r first_n` ) or second-hand condition (N = `r second_n`). 
 
 ## Material
   In order to assess children’s trust in sources, children will be presented with paired sources that differ in their intentions to help or deceive. Children in the first-hand condition were first tricked and helped by separate puppets in a warm-up task and then a researcher described each puppet’s trait before continuing to the sticker-finding task. Children in the second-hand condition only heard the researcher’s description of the puppets and then continued to the task. On each of six trials, children watched as the two puppets provided conflicting advice about the location of a hidden sticker, and then children were asked where they would like to search for the sticker. After children completed six trials they were asked a series of questions to test their understanding of the puppets’ intentions and knowledge.
@@ -144,14 +153,16 @@ We report how we determined our sample size, all data exclusions (if any), all m
 Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) (Tahiroglu, Moses, Carlson, Mahy, Olofson, & Sabbagh, 2014), and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
 
 ## Procedure
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. During the visit parents were first asked to sign a copy of the consent form and will be given a second copy to keep for their records. Once we received consent from the parent and assent from the child, two trained research assistants administered tasks that assess children’s trust in informants, mental state understanding, and executive functioning. These sessions were videotaped and used for later coding. In a neighboring room, parents were asked to fill out a short demographic questionnaire, a brief questionnaire regarding their children’s mental state understanding and had access through a television monitor to see and hear the tasks their child is completing. The selective trust task took about 10 to 15 minutes. The tasks that measure executive functioning took about five minutes each. The whole session took about 45‐60 minutes. Parents spent no more than 15 minutes filling out the two questionnaires.
-
+  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. During the visit parents were first asked to sign a copy of the consent form and will be given a second copy to keep for their records. Once we received consent from the parent and assent from the child, two trained research assistants administered tasks that assess children’s trust in informants, mental state understanding, and executive functioning. These sessions were videotaped and used for later coding. In a neighboring room, parents were asked to fill out a short demographic questionnaire, a brief questionnaire regarding their children’s mental state understanding and had access through a television monitor to see and hear the tasks their child is completing. The selective trust task took about 10 to 15 minutes. The tasks that measure executive functioning took about five minutes each. The whole session took about 45‐60 minutes. Parents spent no more than 15 minutes filling out the two questionnaires. Parents received $10 for time and travel and children received six stickers and a small toy for participation. 
+  
 ## Data analysis
+A between-subjects analysis of variance was used to examine the effect of age and condition on children’s trust score. Children’s trust score was the number of times children choose to take the advice of the help informant over the tricky informant across the six trials of the sticker-finding task. Trust scores ranged from 0-6. A correlation was conducted in order to examine the relationship between parent report measures on their child’s theory of mind ability, measured by the CSUS, and children’s trust score. A second correlation was conducted to examine the relationship between executive functioning and children’s trust scores. We made a composite measure of executive function by averaging children’s raw score on the Dimensional Change Card Sort Task and the Flanker Inhibitory Control Task. 
+  
 We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
-```{r plot 1}
+```{r summary-table-for-plot-1}
 
 #calculating average trust and sd and se to build a summary table nd error bars 
 #for the bar plot 
@@ -164,16 +175,39 @@ summary_p <- df %>%
             se_average_trust = sd_average_trust / (sqrt(n)))
 
 # Table summarizing average trust per condition 
+summary_descrip <- df %>%
+  group_by(age_group, condition) %>%
+  summarise(average_trust = mean(total_trust))
 
-summary_table <- summary_p %>% 
+#Table filling cells with average trust as opposed to separate column
+summary_table <- summary_descrip %>% 
   mutate(average_trust = round(average_trust,2)) %>% 
   spread(condition, average_trust)
 
 # printing table 
+kable(summary_table, "latex", booktabs = T,
+      col.names = c("Age Group",
+                    "First-Hand",
+                    "Second-Hand"),
+      caption = "An amazing table")  %>% 
+  kable_styling(position = "center", full_width = F) %>% 
+  add_header_above(c(" ", "Condition" = 2), align = "c")
 
-kable(summary_table) %>% 
-  kable_styling(position = "center", full_width = F)
+summary_descrip_age <- df %>%
+  group_by(age_group) %>%
+  summarise(trust_mean = mean(total_trust), trust_sd = sd(total_trust))
 
+# setting up values for inline code for the means of trust for each age group
+# could not get the inline code to reference summary_descrip_age[1,3]
+# Only would reference when made a character, unsure why?
+trust_mean_4 <- as.character(round(summary_descrip_age[1,2],2))
+trust_sd_4 <- as.character(round(summary_descrip_age[1,3],2))
+trust_mean_3 <- as.character(round(summary_descrip_age[2,2],2))
+trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
+```
+
+
+``` {r, fig.cap = "figure1_caption"}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
@@ -191,16 +225,19 @@ ggplot(summary_p, aes(age_group, average_trust )) +
 ```
 
 
-```{r anova}
+```{r anova, include=FALSE}
 
 #Running regression for average trust explained by age group and condition and 
 #the interaction between the two 
 
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
-summary(res_aov)
+summary <- summary(res_aov)
+anova <- apa_print(res_aov) #printed so that it can be referenced inline
 ```
 
-```{r plot2}
+A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r trust_mean_4`, *SD* = `r trust_sd_4`) than three-year-olds (*M* = `r trust_mean_3`, *SD* = `r trust_sd_3`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
+
+```{r plot2, fig.cap = "Amazing figure 2"}
 
 #Creating summary variables for plot 2
 
@@ -229,9 +266,9 @@ p2<- round(corr2$p.value, 3)
 ```
 
 `r c2` 
-`r p2` 
+`r p2`
 
-```{r plot3}
+```{r plot3, fig.cap = "Amazing plot 3!"}
 
 #Creating summary variables for Plot 3: 
 
@@ -252,7 +289,7 @@ ggplot(summary_plot3, aes(average_EF, average_trust )) +
   theme_minimal()
 
 corr3 <- cor.test(summary_plot3$average_EF, summary_plot3$average_trust)
-c3<- round(corr3$estimate, 3)
+c3 <- round(corr3$estimate, 3)
 p3 <- round(corr3$p.value, 3)
 ```
 
@@ -260,7 +297,11 @@ p3 <- round(corr3$p.value, 3)
 `r p3`
 
 # Discussion
-
+  We set out to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. Additionally, we examined whether this relationship depended upon the age of the participant (e.g., three or four-years-old). We also examined whether children's average trust scores of an informant was correlated with their parent's perception of the child's theory of mind and social understanding as well as the children's scores on an executive function task.
+  
+  Surprisingly, whether children are provided first-hand or second-hand information about the informant did not have an effect on their selective trust scores nor did this interact with the age of the participants. However, age of the children did significantly predict children's selective trust scores on their own, with four-year-olds reporting higher trust of the reliable informant in comparison to three-year-olds.
+  
+  Our results are consistent with prior research [@harris2011young; @van2011] suggesting that older children are better at selectivity trusting a reliable informant over an unreliable informant when they are providing conflicting information. It is possible that children who received first-hand information didn’t transfer their experience from one task to the other and therefore didn’t benefit from the additional information. Our next step will be to examine how children preformed during the training trials in the first-hand condition and whether that predicts how they trusted in the sticker-finding task. It’s plausible that only children that did well in the training trials benefitted from the first-hand information. Furthermore, individual differences were related to children’s performance on the sticker-finding task. Taken together these results may suggest that children who have higher executive functioning scores may be better able to discriminate between reliable and unreliable sources and may allow children to make better informed decisions about the trustworthiness of informants. 
 
 \newpage
 
