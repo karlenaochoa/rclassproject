@@ -265,8 +265,10 @@ p2<- round(corr2$p.value, 3)
 
 ```
 
-`r c2` 
-`r p2`
+We also wanted to observe the correlation between the children's Trust Score and their parents' CSUS response that informs us about the parents' persective of their children's Theory of Mind. As we can see, in *Figure 2*, the relation between these two variables is positive, suggesting that the higher the Theory of Mind, the Higher the Trust Score. Moreover, we run a correlation test and conclude that the corrrelation is significantly positive (*rho* = `r c2` , *p-value* = `r p2` ).
+
+ 
+
 
 ```{r plot3, fig.cap = "Correlation between Executive Function and Average Trust"}
 
@@ -293,15 +295,19 @@ c3 <- round(corr3$estimate, 3)
 p3 <- round(corr3$p.value, 3)
 ```
 
-`r c3` 
-`r p3`
+Further more, we studied the correlation between the children's Trust Score and their Executive Functions performance. As we can see, in *Figure 3*, the relation between these two variables is positive, suggesting that the better the children's Executive Functions, the Higher the Trust Score. Moreover, we run a correlation test and conclude that the corrrelation is significantly positive (*rho* = `r c3` , *p-value* = `r p3` ).
+
 
 # Discussion
   We set out to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. Additionally, we examined whether this relationship depended upon the age of the participant (e.g., three or four-years-old). We also examined whether children's average trust scores of an informant was correlated with their parent's perception of the child's theory of mind and social understanding as well as the children's scores on an executive function task.
   
   Surprisingly, whether children are provided first-hand or second-hand information about the informant did not have an effect on their selective trust scores nor did this interact with the age of the participants. However, age of the children did significantly predict children's selective trust scores on their own, with four-year-olds reporting higher trust of the reliable informant in comparison to three-year-olds.
   
+  Moreover, as mentioned in the results, we also found a positive relation between the Children's Theory of Mind and their Trust Score, which might suggests that Theory of Mind is a relevant factor in building trust. A similar result was obtained for the relation between Executive Functions performance and the turst score (*Fugre 3*), indicating the relevance of a more devolped capacity in Executive Functions when building trust. 
+  
   Our results are consistent with prior research [@harris2011young; @van2011] suggesting that older children are better at selectivity trusting a reliable informant over an unreliable informant when they are providing conflicting information. It is possible that children who received first-hand information didn’t transfer their experience from one task to the other and therefore didn’t benefit from the additional information. Our next step will be to examine how children preformed during the training trials in the first-hand condition and whether that predicts how they trusted in the sticker-finding task. It’s plausible that only children that did well in the training trials benefitted from the first-hand information. Furthermore, individual differences were related to children’s performance on the sticker-finding task. Taken together these results may suggest that children who have higher executive functioning scores may be better able to discriminate between reliable and unreliable sources and may allow children to make better informed decisions about the trustworthiness of informants. 
+  
+
 
 \newpage
 
