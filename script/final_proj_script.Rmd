@@ -186,6 +186,10 @@ kable(summary_table, "latex", booktabs = T,
                     "Second-Hand"))  %>% 
   kable_styling(position = "center", full_width = F) %>% 
   add_header_above(c(" ", "Condition" = 2), align = "c")
+
+summary_descrip_age <- df %>%
+  group_by(age_group) %>%
+  summarise(trust_mean = mean(total_trust), trust_sd = sd(total_trust))
 ```
 
 
@@ -207,14 +211,17 @@ ggplot(summary_p, aes(age_group, average_trust )) +
 ```
 
 
-```{r anova}
+```{r anova, include=FALSE}
 
 #Running regression for average trust explained by age group and condition and 
 #the interaction between the two 
 
 res_aov <- aov(average_trust ~ age_group * condition, data = df)
-summary(res_aov)
+summary <- summary(res_aov)
+anova <- apa_print(res_aov) #printed so that it can be referenced inline
 ```
+
+A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r summary_descrip_age[1,2]`, *SD* = `r summary_descrip_age[1,3]`) than three-year-olds (*M* = `r summary_descrip_age[2,2]`, *SD* = `r summary_descrip_age[2,3]`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
 
 ```{r plot2}
 
@@ -276,7 +283,9 @@ p3 <- round(corr3$p.value, 3)
 `r p3`
 
 # Discussion
-
+  We set out to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. Additionally, we examined whether this relationship depended upon the age of the participant (e.g., three or four-years-old). We also examined whether children's average trust scores of an informant was correlated with their parent's perception of the child's theory of mind and social understanding as well as the children's scores on an executive function task.
+  
+  Surprisingly, whether children are provided first-hand or second-hand information about the informant did not have an effect on their selective trust scores nor did this interact with the age of the participants. However, age of the children did significantly predict children's selective trust scores on their own, with four-year-olds reporting higher trust of the reliable informant in comparison to three-year-olds.
 
 \newpage
 
