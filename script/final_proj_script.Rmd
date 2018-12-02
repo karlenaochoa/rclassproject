@@ -164,7 +164,7 @@ We used `r cite_r("references.bib")` for all our analyses.
 
 ```{r summary-table-for-plot-1}
 
-#calculating average trust and sd and se to build a summary table nd error bars 
+#calculating average trust and sd and se to build a summary table and error bars 
 #for the bar plot 
 
 summary_p <- df %>%
@@ -237,7 +237,7 @@ anova <- apa_print(res_aov) #printed so that it can be referenced inline
 
 A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r trust_mean_4`, *SD* = `r trust_sd_4`) than three-year-olds (*M* = `r trust_mean_3`, *SD* = `r trust_sd_3`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
 
-```{r plot2, fig.cap = "Amazing figure 2"}
+```{r plot2, fig.cap = "Correlation between Average CSUS repsonse and Average Trust"}
 
 #Creating summary variables for plot 2
 
@@ -268,7 +268,7 @@ p2<- round(corr2$p.value, 3)
 `r c2` 
 `r p2`
 
-```{r plot3, fig.cap = "Amazing plot 3!"}
+```{r plot3, fig.cap = "Correlation between Executive Function and Average Trust"}
 
 #Creating summary variables for Plot 3: 
 
