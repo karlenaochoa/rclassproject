@@ -130,12 +130,22 @@ descrip_cond <- df %>%
 descrip_gender <- df %>% 
   group_by(gender) %>% 
   count()
+
+# setting up values for inline code for the participant descriptives
+# could not get the inline code to reference descrip_age[2,2]
+# Only would reference when made a character, unsure why?
+mean_age_4 <- as.character(round(descrip_age[2,2],2))
+mean_age_3 <- as.character(round(descrip_age[1,2],2))
+female_n <- as.character(round(descrip_gender[1,2],2))
+male_n <- as.character(round(descrip_gender[2,2],2))
+first_n <- as.character(round(descrip_cond[1,2],2))
+second_n <- as.character(round(descrip_cond[2,2],2))
 ```
 
 We report our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r descrip_age[1, 2]` months) and four-year-olds (*M* = `r descrip_age[2, 2]` months) participated (`r descrip_gender[1,2]` females, `r descrip_gender[2,2]` males) and were randomly assigned to either the first-hand condition (N = `r descrip_cond[1, 2]` ) or second-hand condition (N = `r descrip_cond[2, 2]`). 
+  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three-(*M* = `r mean_age_3 ` months) and four-year-olds (*M* = `r mean_age_4` months) participated (`r female_n` females, `r male_n` males) and were randomly assigned to either the first-hand condition (N = `r first_n` ) or second-hand condition (N = `r second_n`). 
 
 ## Material
   In order to assess children’s trust in sources, children will be presented with paired sources that differ in their intentions to help or deceive. Children in the first-hand condition were first tricked and helped by separate puppets in a warm-up task and then a researcher described each puppet’s trait before continuing to the sticker-finding task. Children in the second-hand condition only heard the researcher’s description of the puppets and then continued to the task. On each of six trials, children watched as the two puppets provided conflicting advice about the location of a hidden sticker, and then children were asked where they would like to search for the sticker. After children completed six trials they were asked a series of questions to test their understanding of the puppets’ intentions and knowledge.
@@ -184,6 +194,14 @@ kable(summary_table, "latex", booktabs = T,
 summary_descrip_age <- df %>%
   group_by(age_group) %>%
   summarise(trust_mean = mean(total_trust), trust_sd = sd(total_trust))
+
+# setting up values for inline code for the means of trust for each age group
+# could not get the inline code to reference summary_descrip_age[1,3]
+# Only would reference when made a character, unsure why?
+trust_mean_4 <- as.character(round(summary_descrip_age[1,2],2))
+trust_sd_4 <- as.character(round(summary_descrip_age[1,3],2))
+trust_mean_3 <- as.character(round(summary_descrip_age[2,2],2))
+trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
 ```
 
 
@@ -215,7 +233,7 @@ summary <- summary(res_aov)
 anova <- apa_print(res_aov) #printed so that it can be referenced inline
 ```
 
-A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r summary_descrip_age[1,2]`, *SD* = `r summary_descrip_age[1,3]`) than three-year-olds (*M* = `r summary_descrip_age[2,2]`, *SD* = `r summary_descrip_age[2,3]`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
+A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r trust_mean_4`, *SD* = `r trust_sd_4`) than three-year-olds (*M* = `r trust_mean_3`, *SD* = `r trust_sd_3`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
 
 ```{r plot2}
 
