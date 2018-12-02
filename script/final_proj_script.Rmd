@@ -34,8 +34,9 @@ draft             : no
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
+fig_caption: true
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
   Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency @van2011. Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable @koenig2005preschoolers. These trust tasks have often been conducted using a word‐learning paradigm @koenig2005preschoolers and more recently using a sticker‐finding task @vanderbilt2014absence. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
@@ -155,7 +156,7 @@ We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
-```{r plot 1}
+```{r summary table for plot 1, fig.cap='Average trust scores by age group and condition'}
 
 #calculating average trust and sd and se to build a summary table nd error bars 
 #for the bar plot 
@@ -178,14 +179,17 @@ summary_table <- summary_descrip %>%
   spread(condition, average_trust)
 
 # printing table 
-
-kable(summary_table, "latex", booktabs=T, 
-      escape = FALSE,
+kable(summary_table, "latex", booktabs = T, 
+      caption = 'Average trust scores by age group and condition',
       col.names = c("Age Group",
                     "First-Hand",
                     "Second-Hand"))  %>% 
-  kable_styling(position = "center", full_width = F) 
- 
+  kable_styling(position = "center", full_width = F) %>% 
+  add_header_above(c(" ", "Condition" = 2), align = "c")
+```
+
+
+``` {r plot 1, cache=FALSE, fig.cap='practice', fig.lp=" "}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
