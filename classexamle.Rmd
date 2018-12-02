@@ -1,0 +1,6 @@
+---
+title: "class example"
+author: "Karlena Ochoa"
+date: "October 17, 2018"
+output: html_document
+---

@@ -207,7 +207,7 @@ trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
 ```
 
 
-``` {r plot 1, cache=FALSE, fig.cap='practice', fig.lp=" "}
+``` {r, cache=FALSE, fig.cap='practice', fig.lp=" "}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
