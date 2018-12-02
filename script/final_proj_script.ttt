@@ -1,0 +1,14 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[H]
+\centering
+\begin{tabular}{l|r|r}
+\hline
+age\_group & first-hand & second-hand\\
+\hline
+3 & 3.46 & 3.25\\
+\hline
+4 & 4.67 & 4.00\\
+\hline
+\end{tabular}
+\end{table*}
