@@ -56,7 +56,9 @@ library(knitr)
 library(kableExtra)
 library(stats)
 library(psych)
-library(sjPlot)
+#install.packages("captioner")
+library(captioner)
+
 
 # setting global options: 
 
@@ -162,7 +164,7 @@ We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
-```{r summary table for plot 1, fig.cap='Average trust scores by age group and condition'}
+```{r summary table for plot 1, fig.cap = table_caption}
 
 #calculating average trust and sd and se to build a summary table nd error bars 
 #for the bar plot 
@@ -185,13 +187,17 @@ summary_table <- summary_descrip %>%
   spread(condition, average_trust)
 
 # printing table 
-kable(summary_table, "latex", booktabs = T, 
-      caption = 'Average trust scores by age group and condition',
+kable(summary_table, "latex", booktabs = T,
       col.names = c("Age Group",
                     "First-Hand",
                     "Second-Hand"))  %>% 
   kable_styling(position = "center", full_width = F) %>% 
   add_header_above(c(" ", "Condition" = 2), align = "c")
+
+table <- captioner(prefix = "Table")
+table_caption <- table(
+  name = "interaction", 
+  caption = "Average trust scores by age group and condition.")
 
 summary_descrip_age <- df %>%
   group_by(age_group) %>%
@@ -207,7 +213,7 @@ trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
 ```
 
 
-``` {r, cache=FALSE, fig.cap='practice', fig.lp=" "}
+``` {r, cache=FALSE, fig.cap = figure1_caption, fig.lp=" "}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
@@ -222,6 +228,10 @@ ggplot(summary_p, aes(age_group, average_trust )) +
                   width=.2,                    
                   position = position_dodge(width = 0.9)) +
   theme_minimal()
+figure1 <- captioner(prefix = "Figure")
+figure1_caption <- figure1(
+  name = "figure1", 
+  caption = "Average trust scores by age group and condition.")
 ```
 
 
