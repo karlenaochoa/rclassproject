@@ -21,7 +21,7 @@ abstract: |
   <!-- https://tinyurl.com/ybremelq -->
 keywords          : "Selective trust, executive function, theory of mind"
 wordcount         : "259"
-bibliography      : ["references.bib"]
+bibliography      : "references.bib"
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -31,10 +31,9 @@ mask              : no
 draft             : no
 documentclass     : "apa6"
 classoption       : "man"
-output            : papaja::apa6_pdf
-fig_caption: true
-editor_options: 
-  chunk_output_type: console
+output            : 
+  papaja::apa6_pdf:
+    latex_engine  : "xelatex"
 ---
   Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency [@van2011]. Previous research has found that young children (4‐ and 5‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informants who have been previously unreliable [@koenig2005preschoolers]. These trust tasks have often been conducted using a word‐learning paradigm [@koenig2005preschoolers] and more recently using a sticker‐finding task [@vanderbilt2014absence]. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
   
@@ -42,7 +41,7 @@ editor_options:
   
   The purpose of this current study is to examine whether children are better at selectively trusting reliable informants over unreliable informants when they must infer the informant’s traits, by experiencing them first‐hand, rather than receiving second‐hand information from an experimenter. A secondary aim is to look at preschool‐age children’s cognitive abilities in relation to their ability to selectively trust reliable informants over unreliable informants.
 
-```{r setup, echo = FALSE, warning = FALSE, message=FALSE, error=FALSE}
+```{r setup, include = FALSE}
 
 #loading libraries we will need: 
 
@@ -56,8 +55,7 @@ library(knitr)
 library(kableExtra)
 library(stats)
 library(psych)
-#install.packages("captioner")
-library(captioner)
+
 
 
 # setting global options: 
@@ -70,8 +68,8 @@ knitr::opts_chunk$set()
 
 # Importing our data: 
 
-df <- import(here("data_folder","data.csv"))
-df[df == 999] <- NA
+df <- import(here("data_folder","data.csv"),
+             na.string = "999")
 
 # Cleaning our data: selecting what variables we need, getting rid of NAs, 
 #recoding condition age group and gender for an easier analysis, greating the 
@@ -164,7 +162,7 @@ We used `r cite_r("references.bib")` for all our analyses.
 
 # Results
 
-```{r summary table for plot 1, fig.cap = table_caption}
+```{r summary-table-for-plot-1}
 
 #calculating average trust and sd and se to build a summary table nd error bars 
 #for the bar plot 
@@ -190,14 +188,10 @@ summary_table <- summary_descrip %>%
 kable(summary_table, "latex", booktabs = T,
       col.names = c("Age Group",
                     "First-Hand",
-                    "Second-Hand"))  %>% 
+                    "Second-Hand"),
+      caption = "An amazing table")  %>% 
   kable_styling(position = "center", full_width = F) %>% 
   add_header_above(c(" ", "Condition" = 2), align = "c")
-
-table <- captioner(prefix = "Table")
-table_caption <- table(
-  name = "interaction", 
-  caption = "Average trust scores by age group and condition.")
 
 summary_descrip_age <- df %>%
   group_by(age_group) %>%
@@ -213,7 +207,7 @@ trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
 ```
 
 
-``` {r, cache=FALSE, fig.cap = figure1_caption, fig.lp=" "}
+``` {r, fig.cap = "figure1_caption"}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
@@ -228,10 +222,6 @@ ggplot(summary_p, aes(age_group, average_trust )) +
                   width=.2,                    
                   position = position_dodge(width = 0.9)) +
   theme_minimal()
-figure1 <- captioner(prefix = "Figure")
-figure1_caption <- figure1(
-  name = "figure1", 
-  caption = "Average trust scores by age group and condition.")
 ```
 
 
@@ -247,7 +237,7 @@ anova <- apa_print(res_aov) #printed so that it can be referenced inline
 
 A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r trust_mean_4`, *SD* = `r trust_sd_4`) than three-year-olds (*M* = `r trust_mean_3`, *SD* = `r trust_sd_3`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
 
-```{r plot2}
+```{r plot2, fig.cap = "Amazing figure 2"}
 
 #Creating summary variables for plot 2
 
@@ -278,7 +268,7 @@ p2<- round(corr2$p.value, 3)
 `r c2` 
 `r p2`
 
-```{r plot3}
+```{r plot3, fig.cap = "Amazing plot 3!"}
 
 #Creating summary variables for Plot 3: 
 
