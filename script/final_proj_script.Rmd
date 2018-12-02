@@ -189,7 +189,7 @@ kable(summary_table, "latex", booktabs = T,
       col.names = c("Age Group",
                     "First-Hand",
                     "Second-Hand"),
-      caption = "An amazing table")  %>% 
+      caption = "Means of selective trust by age-group and condition.")  %>% 
   kable_styling(position = "center", full_width = F) %>% 
   add_header_above(c(" ", "Condition" = 2), align = "c")
 
@@ -207,7 +207,7 @@ trust_sd_3 <- as.character(round(summary_descrip_age[2,3],2))
 ```
 
 
-``` {r, fig.cap = "figure1_caption"}
+``` {r, fig.cap = "Average trust predicted by age-group, with four-year-olds showing higher trust than three-year-olds, but not condition."}
 # Constructing Plot 1 
 
 ggplot(summary_p, aes(age_group, average_trust )) +
