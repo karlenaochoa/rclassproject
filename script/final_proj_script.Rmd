@@ -105,7 +105,7 @@ df %<>%
 # Reorganazing data from wide to long for trust and csus response from parents 
 
 data_tidy <- df %>%
-  gather(trial, score, c("tt1", "tt2", "tt3", "tt4", "tt5", "tt6")) %>%
+  gather(trial, score, c("tt1":"tt6")) %>%
   mutate(trial = as.factor(parse_number(trial))) %>%
   mutate(score = as.numeric(score)) %>%
   gather(csus_item, csus_response, "csus1":"csus18") %>%
