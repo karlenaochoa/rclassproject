@@ -56,8 +56,6 @@ library(kableExtra)
 library(stats)
 library(psych)
 
-
-
 # setting global options: 
 
 knitr::opts_chunk$set()
@@ -96,8 +94,6 @@ df %<>%
                                         age_group == 4, "4", "3" ))) %>%
   group_by(subid) %>%
   mutate(average_trust = mean(total_trust))
-    
- 
 ```
 
 ```{r tidydata}
@@ -111,7 +107,6 @@ data_tidy <- df %>%
   gather(csus_item, csus_response, "csus1":"csus18") %>%
   mutate(csus_item = as.factor(parse_number(csus_item))) %>%
   mutate(csus_response = as.numeric(csus_response))
-
 ```
 
 # Methods
