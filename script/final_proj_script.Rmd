@@ -237,7 +237,7 @@ anova <- apa_print(res_aov) #printed so that it can be referenced inline
 
 A 2 x 2 between-subjects ANOVA with condition (first-hand or second-hand information) and age-group (three or four-year-olds) predicting the childrens' average trust scores was conducted. The predicted main effect of age-group was significant, (`r anova$full$age_group`). As can be seen in *Figure 1*, four-year-olds reported higher average trust (*M* = `r trust_mean_4`, *SD* = `r trust_sd_4`) than three-year-olds (*M* = `r trust_mean_3`, *SD* = `r trust_sd_3`). The main effect of condition (`r anova$full$condition`) as well as the interaction between age-group and condition were not significant (`r anova$full_result$age_group_condition`). 
 
-```{r plot2, fig.cap = "Correlation between Average CSUS repsonse and Average Trust"}
+```{r plot2, fig.cap = "Correlation between Average CSUS repsonse and Average Trust. CSUS Response is parent's response on their Children's Theory of Mind. "}
 
 #Creating summary variables for plot 2
 
@@ -253,8 +253,6 @@ ggplot(summary_plot2, aes(average_csus, average_trust )) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(title= "Relation between CSUS Response and Children's Trust Score", 
-       subtitle = " CSUS response is parents' response on 
-       Children's Theory of Mind", 
        x = "Average CSUS Response", 
        y = "Average Trust Score") +
   theme_minimal()
