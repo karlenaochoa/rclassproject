@@ -35,7 +35,7 @@ output            :
   papaja::apa6_pdf:
     latex_engine  : "xelatex"
 ---
-  Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency [@van2011]. Previous research has found that young children (four‐ and five‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informant who have been previously unreliable [@koenig2005preschoolers]. These trust tasks have often been conducted using a word‐learning paradigm [@koenig2005preschoolers] and more recently using a sticker‐finding task [@vanderbilt2014absence]. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
+  Selective trust testimony refers to young children’s ability to reason about informants’ knowledge, honesty, and competency [@van2011]. Previous research has found that young children (four‐ and five‐year‐olds) are not overly credulous and prefer to trust informants who have been previously reliable compared to an informant who has been previously unreliable [@koenig2005preschoolers]. These trust tasks have often been conducted using a word‐learning paradigm [@koenig2005preschoolers] and more recently using a sticker‐finding task [@vanderbilt2014absence]. However, minimal research has examined the effect of first‐hand versus second‐hand information in young children’s trust decisions. Additionally, few studies have examined individual differences in cognitive functioning in relation to children’s ability to selectively trust a reliable informant over an unreliable informant. 
   
   In a previous study we examined preschool‐age children’s ability to reason about the relative knowledge or honesty of two sources presented together. We found that four‐ and five-year‐olds trusted the reliable informant over the unreliable informant. Three‐year‐olds were not selective in their trust of the reliable informant, even though 50% of the children said that the reliable informant was better to listen to. It is possible, however, that when children have first-hand experience with informants’ traits, the traits will become more salient and therefore have a stronger influence on children’s trust decisions. 
   
@@ -94,6 +94,8 @@ df %<>%
                                         age_group == 4, "4", "3" ))) %>%
   group_by(subid) %>%
   mutate(average_trust = mean(total_trust))
+
+# This all looks excellent! Very little I would have done differently here.
 ```
 
 ```{r tidydata}
@@ -107,6 +109,19 @@ data_tidy <- df %>%
   gather(csus_item, csus_response, "csus1":"csus18") %>%
   mutate(csus_item = as.factor(parse_number(csus_item))) %>%
   mutate(csus_response = as.numeric(csus_response))
+
+# So I'm not positive the above is really what you want. Doing the double 
+# gather has left you with 108 rows per id, and all 18 items represented for
+# each trial (6 trials * 18 items 108 rows).
+
+# data_tidy %>% 
+#   count(subid)
+
+# Looking further, it doesn't look like you're even really using this outside of # a few plots. In fact, I don't really see where you're using trial at all 
+# other than in this gather, and same goes for the item level data. So I'd 
+# probably just drop that here. I know you were probably trying to show me you 
+# could gather some data, but I'd rather see it a little more authentically,
+# perhaps through the creation of a plot you otherwise couldn't create.
 ```
 
 # Methods
@@ -129,26 +144,28 @@ descrip_gender <- df %>%
 # setting up values for inline code for the participant descriptives
 # could not get the inline code to reference descrip_age[2,2]
 # Only would reference when made a character, unsure why?
-mean_age_4 <- as.character(round(descrip_age[2,2],2))
-mean_age_3 <- as.character(round(descrip_age[1,2],2))
-female_n <- as.character(round(descrip_gender[1,2],2))
-male_n <- as.character(round(descrip_gender[2,2],2))
-first_n <- as.character(round(descrip_cond[1,2],2))
-second_n <- as.character(round(descrip_cond[2,2],2))
+mean_age_4 <- as.character(round(descrip_age[2, 2], 2))
+mean_age_3 <- as.character(round(descrip_age[1, 2], 2))
+female_n <- as.character(round(descrip_gender[1, 2], 2))
+male_n <- as.character(round(descrip_gender[2, 2], 2))
+first_n <- as.character(round(descrip_cond[1, 2], 2))
+second_n <- as.character(round(descrip_cond[2, 2], 2))
 ```
 
 We report our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
-   This project was pre-registered at the Open Science Framework with a designated sample of 100 children and their respective parent. Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. One-hundred three- (*M* = `r mean_age_3 ` months) and four-year-old children (*M* = `r mean_age_4` months) participated (`r female_n` females, `r male_n` males) and were randomly assigned to either the first-hand (*N* = `r first_n` ) or second-hand condition (*N* = `r second_n`). 
+   This project was pre-registered at the Open Science Framework with a designated sample of 100 children and their respective parent. Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at the University of Oregon. One-hundred three- (*M* = `r mean_age_3 ` months) and four-year-old children (*M* = `r mean_age_4` months) participated (`r female_n` females, `r male_n` males) and were randomly assigned to either the first-hand (*N* = `r first_n` ) or second-hand condition (*N* = `r second_n`). 
 
 ## Material
   In order to assess children’s trust in sources, children were presented with paired sources that differ in their intentions to help or deceive. Children in the first-hand condition were first tricked and helped by separate puppets in a warm-up task and then a researcher described each puppet’s trait before continuing to the sticker-finding task. Children in the second-hand condition only heard the researcher’s description of the puppets and then continued to the task. On each of six trials, children watched as the two puppets provided conflicting advice about the location of a hidden sticker, and then children were asked where they would like to search for the sticker. After children completed six trials they were asked a series of questions to test their understanding of the puppets’ intentions and knowledge.
+  
   Lastly, children completed tasks on an iPad with an experimenter that measured executive functioning and children’s mental state understanding. These tasks included: Flanker Inhibitory Control Task (measures children’s attention by having them focus on one aspect of a scene while there is an abundance of environmental stimuli), Picture Sequence Task (examines children’s episodic memory by playing a memory game in which children must place a set of pictures in order to match the story they heard), Picture Vocabulary Task (children are asked to point to the picture that represents that word said by the experimenter), Dimensional Change Card Task (measures children’s executive functioning and attention by asking children to sort a set of cards by one dimension (e.g., shape) and then by different dimension (e.g., color )), and the List Sorting Working Memory Task (after hearing a list of foods and animals children are asked to repeat the list back by the size of the animal/food).
+ 
   Parents were given a short questionnaire regarding their demographics, the Children’s Social Understanding Scale (CSUS) (Tahiroglu, Moses, Carlson, Mahy, Olofson, & Sabbagh, 2014), and the BRIEF (Behavior Rating Inventory of Executive Function) that measures executive functioning impairments.
 
 ## Procedure
-  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at University of Oregon. During the visit parents were first asked to sign a copy of the consent form and were be given a second copy to keep for their records. Once we received consent from the parent and assent from the child, two trained research assistants administered tasks that assessed children’s trust in informants, mental state understanding, and executive functioning. These sessions were videotaped and used for later coding. In a neighboring room, parents were asked to fill out a short demographic questionnaire, a brief questionnaire regarding their children’s mental state understanding and had access through a television monitor to see and hear the tasks their child were completing. The selective trust task took about 10 to 15 minutes. The tasks that measured executive functioning took about five minutes each. The whole session took about 45‐60 minutes. Parents spent no more than 15 minutes filling out the two questionnaires. Parents received $10 for time and travel and children received six stickers and a small toy for participation. 
+  Children and parents were recruited by the Developing Mind Laboratory at the Psychology Department at the University of Oregon. During the visit parents were first asked to sign a copy of the consent form and were be given a second copy to keep for their records. Once we received consent from the parent and assent from the child, two trained research assistants administered tasks that assessed children’s trust in informants, mental state understanding, and executive functioning. These sessions were videotaped and used for later coding. In a neighboring room, parents were asked to fill out a short demographic questionnaire, a brief questionnaire regarding their children’s mental state understanding and had access through a television monitor to see and hear the tasks their child were completing. The selective trust task took about 10 to 15 minutes. The tasks that measured executive functioning took about five minutes each. The whole session took about 45‐60 minutes. Parents spent no more than 15 minutes filling out the two questionnaires. Parents received $10 for time and travel and children received six stickers and a small toy for participation. 
   
 ## Data analysis
   A between-subjects analysis of variance was used to examine the effect of age and condition on children’s trust scores. Children’s trust scores were operationalized as the number of times children chose to take the advice of the helpful informant over the tricky informant across the six trials of the sticker-finding task. Trust scores ranged from 0-6. A correlation was conducted in order to examine the relationship between parent report measures on their child’s theory of mind ability, measured by the CSUS, and the children’s trust score. A second correlation was conducted to examine the relationship between executive functioning and children’s trust scores. We made a composite measure of executive function by averaging children’s raw score on the Dimensional Change Card Sort Task and the Flanker Inhibitory Control Task. 
@@ -190,7 +207,8 @@ kable(summary_table, "latex", booktabs = T,
 
 summary_descrip_age <- df %>%
   group_by(age_group) %>%
-  summarise(trust_mean = mean(total_trust), trust_sd = sd(total_trust))
+  summarise(trust_mean = mean(total_trust), 
+            trust_sd = sd(total_trust))
 
 # setting up values for inline code for the means of trust for each age group
 # could not get the inline code to reference summary_descrip_age[1,3]
